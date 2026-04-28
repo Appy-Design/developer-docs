@@ -7,9 +7,9 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Appy Stamp Developer Docs',
-			defaultLocale: 'en',
+			defaultLocale: 'root',
 			locales: {
-				en: { label: 'English', lang: 'en' },
+				root: { label: 'English', lang: 'en' },
 				ja: { label: '日本語', lang: 'ja' },
 			},
 			sidebar: [
