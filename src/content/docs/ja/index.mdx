@@ -1,0 +1,47 @@
+---
+title: Appy Stamp 開発者ドキュメント
+description: Appy Stampの開発者ツールでカスタムロイヤルティ体験を構築しましょう。
+template: splash
+hero:
+  tagline: デフォルトのウィジェットを超えて、Appy Stampロイヤルティエンジンに直接接続し、必要なものを構築しましょう。
+  actions:
+    - text: はじめる
+      link: /ja/getting-started/introduction/
+      icon: right-arrow
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## 統合方法を選択
+
+<CardGrid>
+  <Card title="JavaScript SDK" icon="laptop">
+    ストアフロントや任意のウェブサイトでカスタムロイヤルティUIを構築します。SDKは軽量なスクリプトで、顧客データ、リワード、交換機能に直接アクセスできます。
+
+    **用途:**
+    - 独自のデザインでカスタムロイヤルティコンポーネントをレンダリング
+    - スタンプ残高、リワード、VIPティアをサイトの任意の場所に表示
+    - デフォルトウィジェットなしでリワードを交換
+    - 独自のUIからロイヤルティアクション（SNSフォロー、レビュー）をトリガー
+    - Shopify以外のプラットフォームでロイヤルティ機能を構築
+
+    **SDK = Appy Stampの上に独自のロイヤルティUIを構築**
+
+    [SDKを始める &rarr;](/ja/getting-started/introduction/)
+  </Card>
+
+  <Card title="REST API" icon="setting">
+    Appy Stampを外部システムに接続します。サーバー、CRM、カスタムツールからロイヤルティデータの取得と更新ができます。
+
+    **用途:**
+    - CRMやマーケティングプラットフォームとロイヤルティデータを同期
+    - カスタム管理ダッシュボードの構築
+    - 外部システムからロイヤルティロジックをトリガー（Webhook、自動化）
+    - 顧客、リワード、ティアをプログラムで管理
+    - Shopify以外のプラットフォームとの統合
+
+    **API = Appy Stampをストアフロントの外に拡張**
+
+    *近日公開*
+  </Card>
+</CardGrid>

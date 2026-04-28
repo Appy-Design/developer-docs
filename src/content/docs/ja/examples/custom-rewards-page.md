@@ -1,11 +1,11 @@
 ---
-title: Custom Rewards Page
+title: カスタムリワードページ
 sidebar:
   order: 2
-description: Build a rewards page from scratch using the SDK.
+description: SDKを使ってリワードページをゼロから構築する。
 ---
 
-This example builds a simple rewards page that shows the customer's balance, available rewards with a redeem button, and their earned codes.
+この例では、顧客の残高、交換ボタン付きのリワード一覧、獲得済みコードを表示するシンプルなリワードページを構築します。
 
 ## HTML
 
@@ -13,7 +13,7 @@ This example builds a simple rewards page that shows the customer's balance, ava
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Rewards</title>
+  <title>マイリワード</title>
   <style>
     body { font-family: sans-serif; max-width: 600px; margin: 40px auto; }
     .balance { background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
@@ -26,17 +26,17 @@ This example builds a simple rewards page that shows the customer's balance, ava
 </head>
 <body>
 
-<div id="app">Loading...</div>
+<div id="app">読み込み中...</div>
 
-<!-- SDK config (rendered server-side) -->
+<!-- SDK設定（サーバーサイドでレンダリング） -->
 <script>
   window.APPY_SDK = {
     sdkKey: 'YOUR_SDK_KEY',
     customer: {
       id: 12345,
       email: 'customer@example.com',
-      firstName: 'John',
-      lastName: 'Doe',
+      firstName: '太郎',
+      lastName: '山田',
       hash: 'SERVER_COMPUTED_HASH'
     }
   };
@@ -48,7 +48,7 @@ This example builds a simple rewards page that shows the customer's balance, ava
 
   appyStamp.on('appy:ready', function (data) {
     if (!data.authenticated) {
-      app.innerHTML = '<p>Please log in to view your rewards.</p>';
+      app.innerHTML = '<p>リワードを表示するにはログインしてください。</p>';
       return;
     }
     renderPage();
@@ -66,33 +66,33 @@ This example builds a simple rewards page that shows the customer's balance, ava
 
       var html = '';
 
-      // Balance section
+      // 残高セクション
       html += '<div class="balance">';
-      html += '<h1>Welcome, ' + customer.first_name + '</h1>';
-      html += '<p><strong>' + customer.cards + ' Cards & ' + customer.stamps + ' ' + customer.stamps_label + '</strong></p>';
+      html += '<h1>' + customer.first_name + 'さん、こんにちは</h1>';
+      html += '<p><strong>' + customer.cards + ' カード & ' + customer.stamps + ' ' + customer.stamps_label + '</strong></p>';
       if (customer.vip_tier_name) {
-        html += '<p>VIP Tier: ' + customer.vip_tier_name + '</p>';
+        html += '<p>VIPティア: ' + customer.vip_tier_name + '</p>';
       }
       if (customer.next_reward) {
-        html += '<p>Next reward: ' + customer.next_reward.name + ' (' + customer.next_reward.stamps_needed + ' more needed)</p>';
+        html += '<p>次のリワード: ' + customer.next_reward.name + '（あと' + customer.next_reward.stamps_needed + '必要）</p>';
       }
       html += '</div>';
 
-      // Available rewards
-      html += '<h2>Available Rewards</h2>';
+      // 利用可能なリワード
+      html += '<h2>利用可能なリワード</h2>';
       if (rewards.items.length === 0) {
-        html += '<p>No rewards configured yet.</p>';
+        html += '<p>リワードはまだ設定されていません。</p>';
       }
       rewards.items.forEach(function (r) {
         html += '<div class="reward">';
         html += '<div><strong>' + r.name + '</strong><br><small>' + r.price_label + '</small></div>';
-        html += '<button onclick="redeem(' + r.id + ')" id="btn-' + r.id + '">Redeem</button>';
+        html += '<button onclick="redeem(' + r.id + ')" id="btn-' + r.id + '">交換する</button>';
         html += '</div>';
       });
 
-      // Earned codes
+      // 獲得済みコード
       if (codes.items.length > 0) {
-        html += '<h2>Your Codes</h2>';
+        html += '<h2>あなたのコード</h2>';
         codes.items.forEach(function (c) {
           html += '<div class="code">';
           html += '<strong>' + c.name + '</strong> &mdash; <code>' + c.code + '</code>';
@@ -107,15 +107,15 @@ This example builds a simple rewards page that shows the customer's balance, ava
   function redeem(rewardProductId) {
     var btn = document.getElementById('btn-' + rewardProductId);
     btn.disabled = true;
-    btn.textContent = 'Redeeming...';
+    btn.textContent = '交換中...';
 
     appyStamp.redeem(rewardProductId).then(function (result) {
-      alert('Redeemed! Your code: ' + result.code);
-      renderPage(); // refresh the page data
+      alert('交換完了！コード: ' + result.code);
+      renderPage();
     }).catch(function (err) {
-      alert('Could not redeem: ' + err.message);
+      alert('交換できませんでした: ' + err.message);
       btn.disabled = false;
-      btn.textContent = 'Redeem';
+      btn.textContent = '交換する';
     });
   }
 </script>
@@ -124,21 +124,21 @@ This example builds a simple rewards page that shows the customer's balance, ava
 </html>
 ```
 
-## What this example covers
+## このサンプルがカバーする内容
 
-- Waiting for `appy:ready` before rendering
-- Handling the unauthenticated case
-- Fetching multiple data sources in parallel with `Promise.all`
-- Displaying the customer balance (cards and stamps, not raw total)
-- Listing rewards with a redeem button
-- Showing earned discount codes
-- Disabling the button during redemption
-- Refreshing the page after a successful redeem
+- レンダリング前に`appy:ready`を待機
+- 未認証の場合の処理
+- `Promise.all`で複数のデータソースを並列取得
+- 顧客残高の表示（カードとスタンプ、合計値ではなく）
+- 交換ボタン付きのリワード一覧
+- 獲得済みディスカウントコードの表示
+- 交換中のボタン無効化
+- 交換成功後のページ更新
 
-## What you would add in production
+## 本番環境で追加すべきもの
 
-- Server-side rendering of the `window.APPY_SDK` config (never hardcode the hash)
-- Error handling for network failures
-- Pagination for rewards and codes (use `has_more` and `next_page`)
-- Styling that matches your store's brand
-- Loading states while data is being fetched
+- `window.APPY_SDK`設定のサーバーサイドレンダリング（ハッシュをハードコードしない）
+- ネットワーク障害時のエラーハンドリング
+- リワードとコードのページネーション（`has_more`と`next_page`を使用）
+- ストアのブランドに合わせたスタイリング
+- データ取得中のローディング状態

@@ -1,5 +1,7 @@
 ---
 title: Installation
+sidebar:
+  order: 2
 description: How to add the Appy Stamp SDK to your website.
 ---
 

@@ -7,29 +7,26 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'Appy Stamp Developer Docs',
+			defaultLocale: 'en',
+			locales: {
+				en: { label: 'English', lang: 'en' },
+				ja: { label: '日本語', lang: 'ja' },
+			},
 			sidebar: [
 				{
 					label: 'Getting Started',
-					items: [
-						{ label: 'Introduction', slug: 'getting-started/introduction' },
-						{ label: 'Installation', slug: 'getting-started/installation' },
-						{ label: 'Authentication', slug: 'getting-started/authentication' },
-					],
+					translations: { ja: 'はじめに' },
+					autogenerate: { directory: 'getting-started' },
 				},
 				{
 					label: 'SDK Reference',
-					items: [
-						{ label: 'Public Methods', slug: 'sdk/public-methods' },
-						{ label: 'Authenticated Methods', slug: 'sdk/authenticated-methods' },
-						{ label: 'Events', slug: 'sdk/events' },
-					],
+					translations: { ja: 'SDKリファレンス' },
+					autogenerate: { directory: 'sdk' },
 				},
 				{
 					label: 'Examples',
-					items: [
-						{ label: 'HMAC Hash Generation', slug: 'examples/hmac' },
-						{ label: 'Custom Rewards Page', slug: 'examples/custom-rewards-page' },
-					],
+					translations: { ja: 'サンプル' },
+					autogenerate: { directory: 'examples' },
 				},
 			],
 		}),

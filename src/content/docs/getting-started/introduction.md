@@ -1,5 +1,7 @@
 ---
 title: Introduction
+sidebar:
+  order: 1
 description: What the Appy Stamp SDK is and what you can build with it.
 ---
 

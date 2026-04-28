@@ -1,5 +1,7 @@
 ---
 title: Events
+sidebar:
+  order: 3
 description: SDK events you can listen to.
 ---
 

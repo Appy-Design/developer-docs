@@ -1,29 +1,29 @@
 ---
-title: Authentication
+title: 認証
 sidebar:
   order: 3
-description: How to compute the HMAC hash for customer authentication.
+description: 顧客認証用のHMACハッシュの計算方法。
 ---
 
-The SDK uses HMAC-SHA256 to verify customer identity. The hash is computed server-side using your **SDK Secret** (never expose this in client-side code).
+SDKはHMAC-SHA256を使用して顧客の身元を確認します。ハッシュは**SDKシークレット**を使ってサーバーサイドで計算します（シークレットをクライアントサイドのコードに含めないでください）。
 
-## Hash format
+## ハッシュの形式
 
-The input string is a concatenation of these values in this exact order:
+入力文字列は以下の値をこの順序で連結したものです:
 
 ```
 sdkKey + email + firstName + customerId + lastName
 ```
 
-No separators, no spaces between values. The hash is then computed as:
+区切り文字やスペースは入りません。ハッシュは以下のように計算します:
 
 ```
 HMAC-SHA256(input, sdkSecret)
 ```
 
-The result is a lowercase hex string (64 characters).
+結果は小文字の16進数文字列（64文字）です。
 
-## Examples by language
+## 言語別のサンプル
 
 ### Shopify Liquid
 
@@ -98,13 +98,13 @@ input_str = sdk_key + customer['email'] + customer['first_name'] + str(customer[
 hash_value = hmac.new(sdk_secret.encode(), input_str.encode(), hashlib.sha256).hexdigest()
 ```
 
-## Testing your hash
+## ハッシュのテスト
 
-Use the HMAC Calculator in **Settings > Developers** to generate a test hash and compare it with your server-side output. If they match, your implementation is correct.
+**設定 > 開発者**のHMAC計算ツールを使ってテストハッシュを生成し、サーバーサイドの出力と比較してください。一致すれば実装は正しいです。
 
-## Security notes
+## セキュリティに関する注意
 
-- The SDK Secret must never appear in client-side code, HTML source, or JavaScript
-- The hash is specific to one customer. It cannot be reused for a different customer
-- Rotating your SDK Secret (Settings > Developers > Regenerate Secret) invalidates all existing hashes immediately
-- The SDK Key is safe to expose in client-side code. It only identifies your shop
+- SDKシークレットはクライアントサイドのコード、HTMLソース、JavaScriptに含めないこと
+- ハッシュは特定の顧客に固有です。別の顧客には再利用できません
+- SDKシークレットをローテーション（設定 > 開発者 > シークレットを再生成）すると、既存のすべてのハッシュが即座に無効になります
+- SDKキーはクライアントサイドのコードに含めても安全です。ショップの識別のみに使用されます

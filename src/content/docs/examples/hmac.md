@@ -1,5 +1,7 @@
 ---
 title: HMAC Hash Generation
+sidebar:
+  order: 1
 description: Working examples of computing the customer hash in different languages.
 ---
 
