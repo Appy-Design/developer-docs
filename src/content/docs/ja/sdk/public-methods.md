@@ -120,6 +120,32 @@ appyStamp.rewards({ page: 1 }).then(function (data) {
 
 `price_label`は正しい単位でフォーマット済みです。カードベースのリワードの場合は「1 card」と表示されます。
 
+顧客が認証されている場合（SDKが`customer()`を呼び出してトークンを取得済みの場合）、リワードに追加フィールドが含まれます:
+
+```json
+{
+  "id": 42,
+  "name": "500円割引コード",
+  "price": 50,
+  "price_label": "50 スタンプ",
+  "exchange_type": "fixed",
+  "icon_url": "https://...",
+  "can_afford": true,
+  "stamps_needed": 0,
+  "stamps_needed_label": "0 more stamps needed"
+}
+```
+
+| フィールド | 型 | 説明 |
+|----------|------|------|
+| `can_afford` | boolean | 顧客がこのリワードを交換するのに十分なスタンプを持っているか |
+| `stamps_needed` | number | あと何スタンプ必要か（交換可能な場合は0） |
+| `stamps_needed_label` | string | フォーマット済みラベル（例: "8 more stamps needed"） |
+
+カードベースのリワードの場合、カード価格は自動的にスタンプに変換されます。10スタンプカードで1カードのリワードには10スタンプが必要です。
+
+これらのフィールドは顧客が認証されている場合のみ含まれます。未ログインの場合は基本フィールドのみ返されます。
+
 ---
 
 ## appyStamp.vipTiers()
@@ -154,6 +180,21 @@ appyStamp.vipTiers().then(function (data) {
   ]
 }
 ```
+
+顧客が認証されている場合、各ティアに`is_current`フィールドが含まれます:
+
+```json
+{
+  "id": 2,
+  "name": "ゴールド",
+  "milestone": 100,
+  "icon_url": "https://...",
+  "benefits": "全注文10%オフ、送料無料",
+  "is_current": true
+}
+```
+
+このフィールドは顧客がログインしている場合のみ含まれます。`customer().vip_tier_id`と照合する必要なく、顧客の現在のティアをハイライトできます。
 
 ---
 

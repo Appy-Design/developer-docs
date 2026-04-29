@@ -122,6 +122,32 @@ appyStamp.rewards({ page: 1 }).then(function (data) {
 
 The `price_label` is pre-formatted with the correct unit. For card-based rewards it shows "1 card" instead of "1 stamps".
 
+When a customer is authenticated (the SDK has called `customer()` and has a token), rewards include additional fields:
+
+```json
+{
+  "id": 42,
+  "name": "$5 discount code",
+  "price": 50,
+  "price_label": "50 stamps",
+  "exchange_type": "fixed",
+  "icon_url": "https://...",
+  "can_afford": true,
+  "stamps_needed": 0,
+  "stamps_needed_label": "0 more stamps needed"
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `can_afford` | boolean | Whether the customer has enough stamps to redeem this reward |
+| `stamps_needed` | number | How many more stamps the customer needs (0 if affordable) |
+| `stamps_needed_label` | string | Pre-formatted label like "8 more stamps needed" |
+
+For card-based rewards, the calculation converts the card price to stamps automatically. A reward costing 1 card on a 10-stamp card requires 10 stamps, not 1.
+
+These fields are only present when a customer is authenticated. For logged-out visitors, only the base reward fields are returned.
+
 ---
 
 ## appyStamp.vipTiers()
@@ -156,6 +182,21 @@ appyStamp.vipTiers().then(function (data) {
   ]
 }
 ```
+
+When a customer is authenticated, each tier includes an `is_current` field:
+
+```json
+{
+  "id": 2,
+  "name": "Gold",
+  "milestone": 100,
+  "icon_url": "https://...",
+  "benefits": "10% off all orders, free shipping",
+  "is_current": true
+}
+```
+
+This field is only present when a customer is logged in. Use it to highlight the customer's current tier without needing to cross-reference with `customer().vip_tier_id`.
 
 ---
 
