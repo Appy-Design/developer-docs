@@ -134,11 +134,15 @@ type Customer {
   lastName: String
   email: String
   stampBalance: Int
+  cards: Int
+  stampsToNextReward: Int
+  stampsExpireAt: String
   vipTierId: Int
   vipTierName: String
   dateOfBirth: String
   state: String
   mergedIntoCustomerId: Int
+  nextReward: NextReward
 }
 ```
 
@@ -149,11 +153,31 @@ type Customer {
 | `lastName` | `String` | 顧客の姓。 |
 | `email` | `String` | 顧客のメールアドレス。 |
 | `stampBalance` | `Int` | 現在の利用可能なスタンプ残高。 |
+| `cards` | `Int` | 完了したスタンプカードの枚数。 |
+| `stampsToNextReward` | `Int` | 次のリワードに到達するまでに必要な残りのスタンプ数。 |
+| `stampsExpireAt` | `String` | スタンプの有効期限が有効な場合に、現在のスタンプ残高が失効する日時。 |
 | `vipTierId` | `Int` | 現在のVIPティアID（ある場合）。 |
 | `vipTierName` | `String` | 現在のVIPティア名。 |
 | `dateOfBirth` | `String` | "dd-mm" 形式の文字列。 |
 | `state` | `String` | 顧客のロイヤルティ状態。 |
 | `mergedIntoCustomerId` | `Int` | 顧客がマージされた場合、統合先の顧客ID。 |
+| `nextReward` | `NextReward` | 顧客が次に目指しているリワード。単一の顧客を取得したときのみ値が設定されます。 |
+
+## NextReward
+
+顧客が獲得に最も近づいているリワードです。
+
+```graphql
+type NextReward {
+  id: ID!
+  name: String
+}
+```
+
+| フィールド | 型 | 説明 |
+|-------|------|-------------|
+| `id` | `ID!` | リワードの識別子。 |
+| `name` | `String` | リワードの表示名。 |
 
 ## Activity
 

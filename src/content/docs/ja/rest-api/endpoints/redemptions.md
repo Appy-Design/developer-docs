@@ -40,3 +40,27 @@ description: REST API で顧客に代わってリワードを交換します。
 | `stampBalance` | integer | 差し引き後の結果としてのスタンプ残高。 |
 
 顧客がリワードを交換するのに十分なスタンプを持っていない場合は `422 INSUFFICIENT_STAMPS` を、不明なリワードの場合は `404 REWARD_NOT_FOUND` を返します。
+
+## リワードを付与する
+
+`POST /customers/{id}/reward-grants`
+
+スタンプを消費せずに顧客へリワードを発行（無償提供）します。交換と同じですがスタンプ残高はそのまま維持されるため、好意による提供や手動での無償提供に便利です。実際のディスカウントコードが発行されます。
+
+**ボディ:**
+
+| フィールド | 型 | 必須 | 備考 |
+|-------|------|----------|-------|
+| `reward_product_id` | integer | yes | 付与するリワード（`/rewards` の `id`）。 |
+| `variable_amount` | integer | no | 可変価値リワード向けの任意の値。 |
+
+```json
+// returns
+{
+  "code": "APPY-5OFF-XXXX",
+  "name": "$5 off",
+  "stampBalance": 35
+}
+```
+
+レスポンスの形式は交換と同じですが、スタンプを消費していないため `stampBalance` は変化しません。不明なリワードの場合は `404 REWARD_NOT_FOUND` を返します。

@@ -134,11 +134,15 @@ type Customer {
   lastName: String
   email: String
   stampBalance: Int
+  cards: Int
+  stampsToNextReward: Int
+  stampsExpireAt: String
   vipTierId: Int
   vipTierName: String
   dateOfBirth: String
   state: String
   mergedIntoCustomerId: Int
+  nextReward: NextReward
 }
 ```
 
@@ -149,11 +153,31 @@ type Customer {
 | `lastName` | `String` | The customer's last name. |
 | `email` | `String` | The customer's email address. |
 | `stampBalance` | `Int` | Current redeemable stamp balance. |
+| `cards` | `Int` | Number of completed stamp cards. |
+| `stampsToNextReward` | `Int` | Stamps still needed to reach the next reward. |
+| `stampsExpireAt` | `String` | When the current stamp balance expires, if stamp expiry is enabled. |
 | `vipTierId` | `Int` | Current VIP tier ID (if any). |
 | `vipTierName` | `String` | Current VIP tier name. |
 | `dateOfBirth` | `String` | "dd-mm" string. |
 | `state` | `String` | Loyalty state of the customer. |
 | `mergedIntoCustomerId` | `Int` | If the customer was merged, the kept customer's ID. |
+| `nextReward` | `NextReward` | The next reward the customer is working towards. Populated only when fetching a single customer. |
+
+## NextReward
+
+The reward a customer is closest to earning.
+
+```graphql
+type NextReward {
+  id: ID!
+  name: String
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `ID!` | The reward's identifier. |
+| `name` | `String` | The reward's display name. |
 
 ## Activity
 

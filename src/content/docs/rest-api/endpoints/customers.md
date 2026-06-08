@@ -21,12 +21,17 @@ Cursor-paginated list of your customers (oldest first).
 
 | Param | Type | Description |
 |-------|------|-------------|
+| `email` | string | Return only customers with this email address. |
 | `limit` | integer | Page size, 1–1000 (default 20). |
 | `after` | string | Cursor for the next page. |
 | `before` | string | Cursor for the previous page. |
 | `hasCount` | boolean | Include the total `count` in `meta.pagination` (slower). |
 
 See [pagination](/rest-api/overview/#pagination) for details.
+
+:::note[Email is not a unique key]
+An email address can belong to more than one customer, so filtering by `email` may return several customers. A customer's identity is always its Shopify customer ID, never its email.
+:::
 
 ```json
 // data
@@ -37,6 +42,8 @@ See [pagination](/rest-api/overview/#pagination) for details.
     "lastName": "Lovelace",
     "email": "ada@example.com",
     "stampBalance": 35,
+    "cards": 1,
+    "stampsToNextReward": 5,
     "vipTierId": 3,
     "vipTierName": "Gold",
     "dateOfBirth": "09-04",
@@ -66,11 +73,15 @@ Returned by every customer endpoint (list, get, and update). Null fields are omi
 | `lastName` | string | Customer's last name. |
 | `email` | string | Customer's email address. |
 | `stampBalance` | integer | Current redeemable stamp balance. |
+| `cards` | integer | Number of completed stamp cards. |
+| `stampsToNextReward` | integer | Stamps still needed to reach the next reward. |
+| `stampsExpireAt` | string | When the current stamp balance expires, if stamp expiry is enabled (omitted otherwise). |
 | `vipTierId` | integer | Current VIP tier ID (if any). |
 | `vipTierName` | string | Current VIP tier name (if any). |
 | `dateOfBirth` | string | Day and month of birth as a `dd-mm` string. |
 | `state` | string | Loyalty state of the customer. |
 | `mergedIntoCustomerId` | string | If the customer was merged, the kept customer's ID (omitted otherwise). |
+| `nextReward` | object | The next reward the customer is working towards, with `id` and `name`. Returned only by [Get a customer](#get-a-customer). |
 
 ### Pagination fields (`meta.pagination`)
 
@@ -86,7 +97,18 @@ Returned by every customer endpoint (list, get, and update). Null fields are omi
 
 `GET /customers/{id}`
 
-Returns a single customer by Shopify customer ID (see [Customer fields](#customer-fields)), or `404 CUSTOMER_NOT_FOUND`.
+Returns a single customer by Shopify customer ID (see [Customer fields](#customer-fields)), or `404 CUSTOMER_NOT_FOUND`. This endpoint also populates `nextReward`, which the list endpoint omits.
+
+```json
+{
+  "id": "6677889900",
+  "firstName": "Ada",
+  "stampBalance": 35,
+  "cards": 1,
+  "stampsToNextReward": 5,
+  "nextReward": { "id": "44", "name": "Free coffee" }
+}
+```
 
 ## Update a customer
 
@@ -108,6 +130,28 @@ When `excluded` is `true`, the customer is ineligible for the program: they are 
 
 ```json
 { "excluded": true }
+```
+
+Returns the updated customer object (see [Customer fields](#customer-fields)).
+
+## Set a customer's VIP tier
+
+`POST /customers/{id}/tier`
+
+Assigns the customer to a VIP tier. The tier must belong to your shop, otherwise `404 TIER_NOT_FOUND` is returned (and `404 CUSTOMER_NOT_FOUND` for an unknown customer).
+
+Rewards attached to the tier are not auto-issued by this call; it only sets the tier, matching the manual "assign tier" action in the admin.
+
+**Body:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `tier_id` | integer | yes | The tier to assign (`id` from `/tiers`). |
+| `comment` | string | no | Customer-facing note recorded against the change. |
+| `internal_comment` | string | no | Staff-only note recorded against the change. |
+
+```json
+{ "tier_id": 3 }
 ```
 
 Returns the updated customer object (see [Customer fields](#customer-fields)).

@@ -13,10 +13,13 @@ Returns a cursor-paginated page of your shop's loyalty customers.
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
+| `email` | `String` | No | Return only customers with this email address. |
 | `limit` | `Int` | No | Page size, 1–1000, default 20. |
 | `after` | `String` | No | Cursor for the next page. |
 | `before` | `String` | No | Cursor for the previous page. |
 | `hasCount` | `Boolean` | No | Set true to include the total `count` (slower). |
+
+An email address can belong to more than one customer, so filtering by `email` may return several customers. A customer's identity is always its Shopify customer ID, never its email.
 
 Returns a non-null [`CustomerConnection`](../../types/), which wraps the page's `items` and its `pageInfo`.
 
@@ -36,11 +39,16 @@ Each item is a [`Customer`](../../types/):
 | `lastName` | `String` | The customer's last name. |
 | `email` | `String` | The customer's email address. |
 | `stampBalance` | `Int` | Current redeemable stamp balance. |
+| `cards` | `Int` | Number of completed stamp cards. |
+| `stampsToNextReward` | `Int` | Stamps still needed to reach the next reward. |
+| `stampsExpireAt` | `String` | When the current stamp balance expires, if stamp expiry is enabled. |
 | `vipTierId` | `Int` | Current VIP tier ID (if any). |
 | `vipTierName` | `String` | Current VIP tier name. |
 | `dateOfBirth` | `String` | "dd-mm" string. |
 | `state` | `String` | Loyalty state of the customer. |
 | `mergedIntoCustomerId` | `Int` | If the customer was merged, the kept customer's ID. |
+
+`nextReward` is `null` in the list query; fetch a single customer to populate it (it runs a per-customer query, so it is skipped in lists to avoid N+1 work).
 
 The `pageInfo` field is a [`PageInfo`](../../types/):
 
@@ -106,11 +114,15 @@ Returns a [`Customer`](../../types/) object (nullable, `null` if not found).
 | `lastName` | `String` | The customer's last name. |
 | `email` | `String` | The customer's email address. |
 | `stampBalance` | `Int` | Current redeemable stamp balance. |
+| `cards` | `Int` | Number of completed stamp cards. |
+| `stampsToNextReward` | `Int` | Stamps still needed to reach the next reward. |
+| `stampsExpireAt` | `String` | When the current stamp balance expires, if stamp expiry is enabled. |
 | `vipTierId` | `Int` | Current VIP tier ID (if any). |
 | `vipTierName` | `String` | Current VIP tier name. |
 | `dateOfBirth` | `String` | "dd-mm" string. |
 | `state` | `String` | Loyalty state of the customer. |
 | `mergedIntoCustomerId` | `Int` | If the customer was merged, the kept customer's ID. |
+| `nextReward` | [`NextReward`](../../types/) | The next reward the customer is working towards (`id` and `name`). |
 
 ### Example
 
@@ -122,7 +134,10 @@ query ($id: ID!) {
     lastName
     email
     stampBalance
+    cards
+    stampsToNextReward
     vipTierName
+    nextReward { id name }
   }
 }
 ```
@@ -136,7 +151,10 @@ query ($id: ID!) {
       "lastName": "Lovelace",
       "email": "ada@example.com",
       "stampBalance": 35,
-      "vipTierName": "Gold"
+      "cards": 1,
+      "stampsToNextReward": 5,
+      "vipTierName": "Gold",
+      "nextReward": { "id": "44", "name": "Free coffee" }
     }
   }
 }
