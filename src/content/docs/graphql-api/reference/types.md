@@ -87,6 +87,7 @@ type Tier {
   multiplier: Float
   iconUrl: String
   benefits: String
+  rewards: [Reward!]!
 }
 ```
 
@@ -98,6 +99,7 @@ type Tier {
 | `multiplier` | `Float` | Stamp-earning multiplier for members. |
 | `iconUrl` | `String` | Icon URL. |
 | `benefits` | `String` | Description of the tier's benefits. |
+| `rewards` | `[Reward!]!` | Reward products granted by this tier. |
 
 ## Beacon
 

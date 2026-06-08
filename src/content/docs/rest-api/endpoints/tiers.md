@@ -19,7 +19,16 @@ Your program's VIP tiers and their milestones.
     "milestone": 500,
     "multiplier": 2,
     "iconUrl": "https://...",
-    "benefits": "..."
+    "benefits": "...",
+    "rewards": [
+      {
+        "id": "44",
+        "name": "$5 off",
+        "price": 10,
+        "exchangeType": "stamps",
+        "iconUrl": "https://..."
+      }
+    ]
   }
 ]
 ```
@@ -36,6 +45,7 @@ Both the list and single-tier endpoints return objects with these fields.
 | `multiplier` | number | Stamp-earning multiplier for members. |
 | `iconUrl` | string | Icon URL if set (omitted otherwise). |
 | `benefits` | string | Description of the tier's benefits. |
+| `rewards` | array | Reward products granted by this tier. Each object has `id`, `name`, `price`, `exchangeType`, and `iconUrl`. |
 
 ## Get a tier
 

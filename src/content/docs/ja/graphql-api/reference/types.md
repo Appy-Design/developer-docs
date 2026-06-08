@@ -87,6 +87,7 @@ type Tier {
   multiplier: Float
   iconUrl: String
   benefits: String
+  rewards: [Reward!]!
 }
 ```
 
@@ -98,6 +99,7 @@ type Tier {
 | `multiplier` | `Float` | メンバーのスタンプ獲得乗数。 |
 | `iconUrl` | `String` | アイコンURL。 |
 | `benefits` | `String` | ティアの特典の説明。 |
+| `rewards` | `[Reward!]!` | このティアで付与される報酬商品。 |
 
 ## Beacon
 

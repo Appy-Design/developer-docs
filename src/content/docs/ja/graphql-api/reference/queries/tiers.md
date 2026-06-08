@@ -21,6 +21,7 @@ null非許容の[`Tier`](/ja/graphql-api/reference/types/)オブジェクトのn
 | `multiplier` | `Float` | メンバー向けのスタンプ獲得乗数。 |
 | `iconUrl` | `String` | アイコンURL。 |
 | `benefits` | `String` | ティアの特典の説明。 |
+| `rewards` | `[Reward!]!` | このティアで付与される報酬商品。 |
 
 ### 例
 
@@ -30,9 +31,11 @@ query {
     id
     name
     milestone
-    multiplier
-    iconUrl
-    benefits
+    rewards {
+      id
+      name
+      price
+    }
   }
 }
 ```
@@ -45,9 +48,13 @@ query {
         "id": "3",
         "name": "Gold",
         "milestone": 100,
-        "multiplier": 1.5,
-        "iconUrl": "https://cdn.appydesign.io/icons/gold.svg",
-        "benefits": "1.5x stamps on every order"
+        "rewards": [
+          {
+            "id": "12",
+            "name": "Free coffee",
+            "price": 50
+          }
+        ]
       }
     ]
   }
@@ -76,6 +83,7 @@ IDで単一のVIPティアを返します。
 | `multiplier` | `Float` | メンバー向けのスタンプ獲得乗数。 |
 | `iconUrl` | `String` | アイコンURL。 |
 | `benefits` | `String` | ティアの特典の説明。 |
+| `rewards` | `[Reward!]!` | このティアで付与される報酬商品。 |
 
 ### 例
 
@@ -85,8 +93,11 @@ query ($id: ID!) {
     id
     name
     milestone
-    multiplier
-    benefits
+    rewards {
+      id
+      name
+      price
+    }
   }
 }
 ```
@@ -98,8 +109,13 @@ query ($id: ID!) {
       "id": "3",
       "name": "Gold",
       "milestone": 100,
-      "multiplier": 1.5,
-      "benefits": "1.5x stamps on every order"
+      "rewards": [
+        {
+          "id": "12",
+          "name": "Free coffee",
+          "price": 50
+        }
+      ]
     }
   }
 }

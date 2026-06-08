@@ -19,7 +19,16 @@ description: REST API で VIP ティアを一覧・取得します。
     "milestone": 500,
     "multiplier": 2,
     "iconUrl": "https://...",
-    "benefits": "..."
+    "benefits": "...",
+    "rewards": [
+      {
+        "id": "44",
+        "name": "$5 off",
+        "price": 10,
+        "exchangeType": "stamps",
+        "iconUrl": "https://..."
+      }
+    ]
   }
 ]
 ```
@@ -36,6 +45,7 @@ description: REST API で VIP ティアを一覧・取得します。
 | `multiplier` | number | メンバーのスタンプ獲得乗数。 |
 | `iconUrl` | string | 設定されている場合のアイコン URL（未設定の場合は省略）。 |
 | `benefits` | string | ティアの特典の説明。 |
+| `rewards` | array | このティアで付与される報酬商品。各オブジェクトは `id`、`name`、`price`、`exchangeType`、`iconUrl` を持ちます。 |
 
 ## ティアを取得する
 

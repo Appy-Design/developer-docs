@@ -21,6 +21,7 @@ Returns a non-null list of non-null [`Tier`](../../types/) objects (`[Tier!]!`).
 | `multiplier` | `Float` | Stamp-earning multiplier for members. |
 | `iconUrl` | `String` | Icon URL. |
 | `benefits` | `String` | Description of the tier's benefits. |
+| `rewards` | `[Reward!]!` | Reward products granted by this tier. |
 
 ### Example
 
@@ -30,9 +31,11 @@ query {
     id
     name
     milestone
-    multiplier
-    iconUrl
-    benefits
+    rewards {
+      id
+      name
+      price
+    }
   }
 }
 ```
@@ -45,9 +48,13 @@ query {
         "id": "3",
         "name": "Gold",
         "milestone": 100,
-        "multiplier": 1.5,
-        "iconUrl": "https://cdn.appydesign.io/icons/gold.svg",
-        "benefits": "1.5x stamps on every order"
+        "rewards": [
+          {
+            "id": "12",
+            "name": "Free coffee",
+            "price": 50
+          }
+        ]
       }
     ]
   }
@@ -76,6 +83,7 @@ Returns a [`Tier`](../../types/) object (nullable, `null` if not found).
 | `multiplier` | `Float` | Stamp-earning multiplier for members. |
 | `iconUrl` | `String` | Icon URL. |
 | `benefits` | `String` | Description of the tier's benefits. |
+| `rewards` | `[Reward!]!` | Reward products granted by this tier. |
 
 ### Example
 
@@ -85,8 +93,11 @@ query ($id: ID!) {
     id
     name
     milestone
-    multiplier
-    benefits
+    rewards {
+      id
+      name
+      price
+    }
   }
 }
 ```
@@ -98,8 +109,13 @@ query ($id: ID!) {
       "id": "3",
       "name": "Gold",
       "milestone": 100,
-      "multiplier": 1.5,
-      "benefits": "1.5x stamps on every order"
+      "rewards": [
+        {
+          "id": "12",
+          "name": "Free coffee",
+          "price": 50
+        }
+      ]
     }
   }
 }
