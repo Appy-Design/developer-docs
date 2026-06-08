@@ -1,7 +1,7 @@
 ---
 title: Public Methods
 sidebar:
-  order: 1
+  order: 3
 description: SDK methods that work without customer authentication.
 ---
 

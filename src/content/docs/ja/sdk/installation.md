@@ -1,7 +1,7 @@
 ---
 title: インストール
 sidebar:
-  order: 2
+  order: 1
 description: Appy Stamp SDKをウェブサイトに追加する方法。
 ---
 
@@ -47,7 +47,7 @@ description: Appy Stamp SDKをウェブサイトに追加する方法。
 <script async src="https://storage.googleapis.com/scripts.appydesign.io/sdk/v1/appy-stamp-sdk.min.js"></script>
 ```
 
-ハッシュの計算方法については[認証](/ja/getting-started/authentication)を参照してください。
+ハッシュの計算方法については[認証](/ja/sdk/authentication/)を参照してください。
 
 ## 動作確認
 

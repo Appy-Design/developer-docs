@@ -1,7 +1,7 @@
 ---
 title: 認証済みメソッド
 sidebar:
-  order: 2
+  order: 4
 description: 顧客認証が必要なSDKメソッド。
 ---
 

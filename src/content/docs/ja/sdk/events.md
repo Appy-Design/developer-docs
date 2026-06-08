@@ -1,7 +1,7 @@
 ---
 title: イベント
 sidebar:
-  order: 3
+  order: 5
 description: SDKが発火するイベント。
 ---
 

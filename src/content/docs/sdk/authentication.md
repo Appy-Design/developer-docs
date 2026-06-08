@@ -1,7 +1,7 @@
 ---
 title: Authentication
 sidebar:
-  order: 3
+  order: 2
 description: How to compute the HMAC hash for customer authentication.
 ---
 

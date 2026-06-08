@@ -1,7 +1,7 @@
 ---
 title: 認証
 sidebar:
-  order: 3
+  order: 2
 description: 顧客認証用のHMACハッシュの計算方法。
 ---
 

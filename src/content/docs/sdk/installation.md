@@ -1,7 +1,7 @@
 ---
 title: Installation
 sidebar:
-  order: 2
+  order: 1
 description: How to add the Appy Stamp SDK to your website.
 ---
 
@@ -47,7 +47,7 @@ To access customer data (balance, activity, redemption), you need to pass custom
 <script async src="https://storage.googleapis.com/scripts.appydesign.io/sdk/v1/appy-stamp-sdk.min.js"></script>
 ```
 
-See [Authentication](/getting-started/authentication) for how to compute the hash in different languages.
+See [Authentication](/sdk/authentication/) for how to compute the hash in different languages.
 
 ## Verify it works
 

@@ -1,7 +1,7 @@
 ---
 title: パブリックメソッド
 sidebar:
-  order: 1
+  order: 3
 description: 顧客認証なしで使用できるSDKメソッド。
 ---
 

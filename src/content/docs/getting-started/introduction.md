@@ -2,37 +2,35 @@
 title: Introduction
 sidebar:
   order: 1
-description: What the Appy Stamp SDK is and what you can build with it.
+description: "The three ways to build on Appy Stamp: the JavaScript SDK, the REST API, and the GraphQL API."
 ---
 
-The Appy Stamp JavaScript SDK gives developers programmatic access to loyalty program data on any website. Use it to build custom loyalty landing pages, headless storefronts, or integrate stamp and reward data into your own frontend.
+Appy Stamp gives you three ways to build on your loyalty program. Pick the one that fits where your code runs.
 
-The SDK is a lightweight standalone script (under 3KB) with no dependencies. It works on any platform, not just Shopify.
+## JavaScript SDK
 
-## What you can do
+A lightweight browser script (under 3KB, no dependencies) for building custom loyalty UI on your storefront or any website. It is scoped to the logged-in customer, so it suits storefront widgets, custom rewards pages, and headless storefronts. Available on any paid plan.
 
-**Without customer login (public data):**
-- Fetch shop settings (program name, stamp branding, currency)
-- List earning rules (how customers earn stamps)
-- List available rewards
-- List VIP tier definitions
-- List active beacons
+Start with [SDK Installation](/sdk/installation/).
 
-**With customer login (authenticated):**
-- Get a customer's stamp balance, VIP tier, and next reward
-- Browse their activity history (paginated)
-- List their earned reward codes
-- Redeem a reward and get a discount code back
-- Trigger activities (social follows, reviews)
-- Update their date of birth
+## REST API
 
-## How it works
+A server-to-server HTTP API that authenticates as the merchant and can act on any customer in your shop. Use it from your backend, CRM, or automation tooling. Currently in closed beta, on paid plans.
 
-1. You add a config object and script tag to your page
-2. The SDK loads, fetches shop settings, and optionally authenticates the customer
-3. You call methods on `window.appyStamp` to get data and perform actions
-4. All methods return Promises
+Start with the [REST API Overview](/rest-api/overview/).
 
-## Next steps
+## GraphQL API
 
-Head to [Installation](/getting-started/installation) to add the SDK to your site.
+The same data and capabilities as the REST API through a single typed, introspectable endpoint. Fetch exactly the fields you need in one request. Currently in closed beta, on paid plans.
+
+Start with the [GraphQL API Overview](/graphql-api/overview/).
+
+## What you can work with
+
+Across all three integrations you can access:
+
+- Shop settings (program name, stamp branding, currency)
+- Earning rules, rewards, and VIP tiers
+- Customers, including their stamp balance, VIP tier, and activity history
+- Earned reward codes and redemptions
+- Awarding and adjusting stamps (REST and GraphQL)

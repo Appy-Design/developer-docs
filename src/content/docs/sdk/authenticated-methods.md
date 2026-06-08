@@ -1,7 +1,7 @@
 ---
 title: Authenticated Methods
 sidebar:
-  order: 2
+  order: 4
 description: SDK methods that require customer authentication.
 ---
 
