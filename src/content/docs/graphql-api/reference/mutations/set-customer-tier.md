@@ -5,9 +5,9 @@ sidebar:
 description: "The setCustomerTier mutation: assign a customer to a VIP tier."
 ---
 
-## `setCustomerTier(customerId, tierId, comment, internalComment)`
+## `setCustomerTier(customerId, tierId, triggerRewards, comment, internalComment)`
 
-Assigns a customer to a VIP tier. The tier must belong to your shop. Rewards attached to the tier are not auto-issued by this call; it only sets the tier, matching the manual "assign tier" action in the admin.
+Assigns a customer to a VIP tier. The tier must belong to your shop. By default this only sets the tier. Set `triggerRewards` to `true` to also issue the rewards attached to the tier, the same as ticking "give this tier's rewards" on the admin tier change.
 
 ### Arguments
 
@@ -15,6 +15,7 @@ Assigns a customer to a VIP tier. The tier must belong to your shop. Rewards att
 |------|------|----------|-------------|
 | `customerId` | `ID!` | Yes | The Shopify customer ID. |
 | `tierId` | `ID!` | Yes | The tier to assign. |
+| `triggerRewards` | `Boolean` | No | When `true`, also issue the tier's rewards to the customer. Defaults to `false`. |
 | `comment` | `String` | No | Customer-facing note recorded against the change. |
 | `internalComment` | `String` | No | Staff-only note recorded against the change. |
 

@@ -140,13 +140,14 @@ Returns the updated customer object (see [Customer fields](#customer-fields)).
 
 Assigns the customer to a VIP tier. The tier must belong to your shop, otherwise `404 TIER_NOT_FOUND` is returned (and `404 CUSTOMER_NOT_FOUND` for an unknown customer).
 
-Rewards attached to the tier are not auto-issued by this call; it only sets the tier, matching the manual "assign tier" action in the admin.
+By default this only sets the tier. Set `trigger_rewards` to `true` to also issue the rewards attached to the tier, the same as ticking "give this tier's rewards" on the admin tier change.
 
 **Body:**
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `tier_id` | integer | yes | The tier to assign (`id` from `/tiers`). |
+| `trigger_rewards` | boolean | no | When `true`, also issue the tier's rewards to the customer. Defaults to `false`. |
 | `comment` | string | no | Customer-facing note recorded against the change. |
 | `internal_comment` | string | no | Staff-only note recorded against the change. |
 
