@@ -24,6 +24,11 @@ export default defineConfig({
 					autogenerate: { directory: 'sdk' },
 				},
 				{
+					label: 'Widget',
+					translations: { ja: 'ウィジェット' },
+					autogenerate: { directory: 'widget' },
+				},
+				{
 					label: 'REST API',
 					translations: { ja: 'REST API' },
 					items: [
